@@ -22,14 +22,14 @@ public class UsuarioSistemaDAO {
         return null;
     }
 
-    List<UsuarioSistema> listar() {
-        List<UsuarioSistema> lista = new ArrayList<>();
+    List<AutenticacaoUsuario> listar() {
+        List<AutenticacaoUsuario> lista = new ArrayList<>();
         try {
             String sql = "SELECT * FROM usuario";
             PreparedStatement ps = obterConexao().prepareStatement(sql);
             ResultSet resultado = ps.executeQuery();
             while (resultado.next()) {
-                UsuarioSistema usuario = new UsuarioSistema(resultado.getString(1), resultado.getString(2),
+                AutenticacaoUsuario usuario = new AutenticacaoUsuario(resultado.getString(1), resultado.getString(2),
                         resultado.getBoolean(3));
                 lista.add(usuario);
             }
@@ -40,7 +40,7 @@ public class UsuarioSistemaDAO {
         }
     }
 
-    UsuarioSistema obter(String login, String senha) {
+    AutenticacaoUsuario obter(String login, String senha) {
         try {
             String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ?";
             PreparedStatement ps = obterConexao().prepareStatement(sql);
@@ -48,7 +48,7 @@ public class UsuarioSistemaDAO {
             ps.setString(2, senha);
             ResultSet resultado = ps.executeQuery();
             if (resultado.next()) {
-                return new UsuarioSistema(resultado.getString(1), resultado.getString(2), resultado.getBoolean(3));
+                return new AutenticacaoUsuario(resultado.getString(1), resultado.getString(2), resultado.getBoolean(3));
             } else {
                 return null;
             }
@@ -58,7 +58,7 @@ public class UsuarioSistemaDAO {
         }
     }
 
-    boolean atualizar(UsuarioSistema usuario) {
+    boolean atualizar(AutenticacaoUsuario usuario) {
         try {
             String sql = "UPDATE usuario SET senha = ?, superusuario = ? WHERE login = ?";
             PreparedStatement ps = obterConexao().prepareStatement(sql);
@@ -73,7 +73,7 @@ public class UsuarioSistemaDAO {
         }
     }
 
-    boolean criar(UsuarioSistema usuario) {
+    boolean criar(AutenticacaoUsuario usuario) {
         try {
             String sql = "INSERT INTO usuario (login, senha, superusuario) VALUES (?, ?, ?)";
             PreparedStatement ps = obterConexao().prepareStatement(sql);
@@ -88,7 +88,7 @@ public class UsuarioSistemaDAO {
         }
     }
 
-    boolean apagar(UsuarioSistema usuario) {
+    boolean apagar(AutenticacaoUsuario usuario) {
         try {
             String sql = "DELETE FROM usuario WHERE login = ?";
             PreparedStatement ps = obterConexao().prepareStatement(sql);

@@ -12,7 +12,7 @@ public class VerificacaoLogin {
     public static boolean checkLogin(int iduser, String password) {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASS)) {
 
-            String sql = "SELECT * FROM allusers WHERE ID = ? AND senha = ?";
+            String sql = "SELECT * FROM Usuario WHERE ID = ? AND senha = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 preparedStatement.setInt(1, iduser);
                 preparedStatement.setString(2, password);
